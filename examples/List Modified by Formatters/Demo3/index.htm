@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>List Modified by Formatters - Demo3</title>
+
+    <!--*******************************************************
+	**********************Required Includes********************
+	********************************************************-->
+    <link href="../../../CSS/tuMap.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../../Lib/jquery-1.10.2.min.js"></script>
+    <!--[if lt IE 9]><script type="text/javascript" src="../../../Lib/excanvas-min.js"></script><![endif]-->
+    <script type="text/javascript" src="../../../Lib/jquery.tuMap-min.js"></script>
+    <script type="text/javascript" src="../../../Lib/jquery.hammer.min.js"></script>
+
+    <!--*******************************************************
+	**********************Optional Includes********************
+	********************************************************-->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <!-- jQuery UI Style Sheet, Used for Price Slider -->
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <!-- jQuery UI Library, Used for Price Slider -->
+
+    <!--*******************************************************
+	**********************FOR DEMO ONLY************************
+	********************************************************-->
+    <link href="../../../CSS/font-face.css" rel="stylesheet" type="text/css" />
+    <!-- Custom Web Font(RobotoLight) Used For Demo -->
+    <link href="CSS/style.css" rel="stylesheet" type="text/css" />
+    <!-- Custom Style Sheet Used For Demo to Customize list, Search Bar etc. -->
+    <link href="CSS/jquery.Overlay.css" rel="stylesheet" type="text/css" />
+    <!-- Custom Style Sheet Used For Zone and Qunatity Dropdown. -->
+    <link href="CSS/CustomInput.css" rel="stylesheet" />
+    <!-- Custom Style Sheet Used For Checkbox. -->
+    <script type="text/javascript" src="JS/jquery.Overlay.js"></script>
+    <!-- Custom jQuery Library Used For Zone and Qunatity Dropdown. -->
+    <script type="text/javascript" src="../../Data.js"></script>
+    <!-- Min Price, Max Price, Tickets Count, Tickets Array -->
+    <script type="text/javascript" src="../../Demo.js"></script>
+    <!-- Common Functions like Show List Loading, Set Height etc. -->
+
+</head>
+<body>
+
+    <div class="GradientBg">
+        <div class="Filters RemoveHeight">
+            <div>
+                <div class="LeftAlign">
+                    <div id="ZoneSelector">Zones<b></b></div>
+                </div>
+                <div class="RightAlign">
+                    <span class="Title RemoveHeight">Quantity:</span>
+                    <select id="Select1">
+                        <option value="" selected="selected">All</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5+">5 Or More</option>
+                    </select>
+                </div>
+                <div class="RightAlign">
+                    <span class="Title RemoveHeight">Sort By:</span>
+                    <select id="TicketSortBy">
+                        <option data-sorttype="integer" data-sortorder="ASC" value="price" selected="selected">Price: low to high</option>
+                        <option data-sorttype="integer" data-sortorder="DESC" value="price">Price: high to low</option>
+                        <option data-sorttype="string" data-sortorder="ASC" value="section">Sections: Ascending</option>
+                        <option data-sorttype="string" data-sortorder="DESC" value="section">Sections: Descending</option>
+                        <option data-sorttype="string" data-sortorder="ASC" value="row">Rows: Ascending</option>
+                        <option data-sorttype="string" data-sortorder="DESC" value="row">Rows: Descending</option>
+                    </select>
+                </div>
+                <div class="RightAlign" style="padding: 0 5px;">
+                    <span class="Title">Show Only</span>
+                    <input type="checkbox" id="Parking" class="Custom" /><label for="Parking"><i></i>Parking Only</label>
+                    <input type="checkbox" id="ETicket" class="Custom" /><label for="ETicket"><i></i>eTickets Only</label>
+                </div>
+                <div class="RightAlign">
+                    <span class="Title">Price Filter:</span>
+                    <div id="PriceRange"></div>
+                </div>
+                <br style="clear: both;" />
+            </div>
+        </div>
+
+        <div id="ChartListContainer">
+            <!-- List Container -->
+            <div class="TicketListContainer" id="ListContainer">
+                <div class="CompareTixContainer">
+                    <a href="javascript:CompareTix()" class="Compare">Compare</a>
+                    <br />
+                    <a href="javascript:ResetCompareTix()" class="ResetCompare">Reset</a>
+                </div>
+                <!-- Required Container to load Ticket List -->
+                <div id="InventoryContainer">
+                </div>
+            </div>
+
+            <!-- Map Container -->
+            <div id="TuMap">
+                <!-- Required Container to load Interactive Map -->
+                <div id="MapContainer" class="MapContainer">
+                </div>
+
+                <!-- Required Container to Interactive Map's Section Groups/Legends List -->
+                <div id="GroupsContainer" class="GroupsContainer">
+                </div>
+            </div>
+            <div class="flC"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            /************************************************************
+            MapContainer Height to view complete chart
+            ************************************************************/
+            Demo.SetHeightWidth();
+
+            //Generate Price Filter
+            var PriceSlab = 100,
+                Buttons = 4;
+            if (Data.MaxPrice < (PriceSlab * Buttons)) {
+                PriceSlab -= parseInt((Data.MaxPrice / Buttons));
+                PriceSlab += 100 - (PriceSlab % 100);
+            }
+            var PriceStart = 0,
+                PriceEnd = 0;
+            for (var Limit = 1; Limit < Buttons; Limit++) {
+                PriceEnd += PriceSlab;
+                PriceStart = PriceEnd - PriceSlab + 1;
+                $("#PriceRange").append($("<input type=\"checkbox\" id=\"PriceFilter_" + Limit + "\" data-min=\"" + PriceStart + "\" data-max=\"" + PriceEnd + "\">"));
+                $("#PriceRange").append($("<label class=\"Custom\" for=\"PriceFilter_" + Limit + "\">$" + PriceStart + " - $" + PriceEnd + "</label>"));
+            }
+            $("#PriceRange").append($("<input type=\"checkbox\" id=\"PriceFilter_" + Buttons + "\" data-min=\"" + (PriceEnd + 1) + "\" data-max=\"" + Data.MaxPrice + "\">"));
+            $("#PriceRange").append($("<label class=\"Custom\" for=\"PriceFilter_" + Buttons + "\">$" + PriceEnd + "+</label>"));
+
+            $("#PriceRange").buttonset();
+            $("#PriceRange > input:checkbox").change(function () {
+                FilterTickets();
+            });
+
+            /************************************************************
+            Initialize Ticket Utils Interactive Map
+            ************************************************************/
+            //ONLY FOR DEMO
+            Demo.StartLoading();
+
+            $("#MapContainer").tuMap({
+                MapId: "24d98d09-37e1-437f-87c5-eae845692e6c"
+                , ControlsPosition: "Inside"
+                /*Failover Map: Replace this with a URL of the static chart from alternate datasource(when available)*/
+                , FailoverMapUrl: "http://static.ticketutils.com/Charts/No-Seating-Chart.jpg"
+                , ColorScheme: 1
+                , ZoomLevel: 2
+                , DisplayListHeader: false
+                , Columns: {
+                    "flag": {
+                        CSSClass: "TicketRow Compare"
+                        , Formatter: function (RowData, Key, CellValue, FormattedSection) {
+                            return "<input type=\"checkbox\" value=\"" + RowData.id + "\" />";
+                        }
+                    }
+			        , "id": {
+			            CSSClass: "TicketRow"
+					    , Formatter: function (RowData, Key, CellValue, FormattedSection) {
+					        var Code = "<div>";
+					        Code += "<div class=\"TicketRightSection\">";
+					        Code += "<span class=\"price\">" + RowData.price + "</span>";
+					        Code += "<input type=\"button\"";
+					        Code += " onclick=\"BuyNow('" + RowData.id + "','" + RowData.price + "');\"";
+					        Code += " value=\"Go\"/>";
+					        Code += "</div>";
+					        Code += "<div class=\"TicketLeftSection\">";
+					        Code += "<span class=\"title\">" + RowData.section + "</span>";
+					        Code += "<span>Row " + RowData.row + " | Qty </span>";
+					        if ($.isArray(RowData.quantity)) {
+					            var Qnty = RowData.quantity.slice(0).sort(sortD);
+					            Code += "<select id=\"Qty" + RowData.id + "\">";
+					            for (var x = 0; x < Qnty.length; x++) {
+					                Code += "<option>" + Qnty[x] + "</option>";
+					            }
+					            Code += "</select>";
+					        }
+					        else {
+					            Code += "<span>" + RowData.quantity + "</span>";
+					            Code += "<input type=\"hidden\" id=\"Qty" + RowData.id + "\" lang=\"Quantity\"";
+					            Code += " value=\"" + RowData.quantity + "\"/>";
+					        }
+					        Code += "<span class=\"smallIcon" + (RowData.notes != "" ? " Note\" title=\"" + RowData.notes : "") + "\"></span>";
+					        Code += "<span class=\"smallIcon" + (RowData.eticket ? " eTicket\" title=\"Email Delivery" : "") + "\"></span>";
+					        Code += "<span class=\"smallIcon" + (RowData.preferred ? " Preferred\" title=\"Preferred Ticket" : "") + "\"></span>";
+					        Code += "</div>";
+					        Code += "</div>";
+					        return Code;
+					    }
+			        }
+                }
+            , PreferredText: "Preferred Tickets First"
+			, Tickets: Data.Tickets
+			, AutoSwitchToStatic: true
+			, PreferredFirst: true
+			, TicketsListContainer: "#InventoryContainer"
+			, GroupsContainer: "#GroupsContainer"
+            , OnBeforeListRender: function () {
+                var Height = $("#TuMap").outerHeight(true);
+                //Height -= $("div.tuMapPreferredFilter").outerHeight(true);
+                $("#InventoryContainer").height(Height);
+            }
+            , OnInit: function (e, MapType) {
+
+                $("div.tuMapControl").each(function () {
+                    if ($(this).html() == "Parking") {
+                        $(this).css("display", "none");
+                    }
+                });
+
+                //ONLY FOR DEMO
+                $("#PreferdFilter div.tuMapPreferred").remove();
+                $("div.tuMapPreferredFilter > div.tuMapPreferred > span.Icon").insertAfter("div.tuMapPreferredFilter > div.tuMapPreferred > input");
+                //$("div.tuMapPreferredFilter > div.tuMapPreferred").appendTo("#PreferdFilter");
+                $("div.tuMapPreferredFilter").prepend($("div.CompareTixContainer"));
+
+                //Set Values to Price Slider
+                LoadComplete(true);
+
+                //Create Zone Selection Ovelay
+                $("#ZoneSelector").show().Overlay({
+                    Class: "ZoneOverlay"
+                    , Content: function (Item, Callback) {
+                        var Zones = $("#GroupsContainer").clone(true).attr("id", "ZoneFilter").removeClass("GroupsContainer");
+                        Zones.find("div.tuMapGroup:not(.Disabled)").click(function () {
+                            if ($(this).hasClass("tuMapGroupChecked")) {
+                                $(this).removeClass("tuMapGroupChecked");
+                            }
+                            else {
+                                $(this).addClass("tuMapGroupChecked");
+                            }
+                        });
+                        return Callback(Zones);
+                    }
+                    , HPosition: "Left"
+                    , VPosition: "Bottom"
+                    , Behaviour: "Menu"
+                    , OnActivated: function (Control) {
+                        Control.addClass("Active");
+                    }
+                    , OnDeactivated: function (Control) {
+                        Control.removeClass("Active");
+                    }
+                });
+            }
+			, OnError: function (e, Error) {
+			    if (Error.Code == 0) {
+			        var Message = "<div style=\"padding:10px;\">";
+			        Message += "<span style=\"color:red;font-weight:bold;\">This Sample is Configured to run under host 'localhost'</span>";
+			        Message += "<br />";
+			        Message += "Please configure IIS/Apache or Compatible Web Server to point 'demo' folder in order to view the Sample. If you intend to Run it under different Domain, please contact TicketUtils Support for Activation";
+			        Message += "</div>";
+			        $("#MapContainer").html(Message);
+			    }
+
+			    //ONLY FOR DEMO
+			    LoadComplete(false);
+
+			}
+            , OnReset: function () {
+                Reset();
+                if ($("DIV.CompareTixContainer > a.ResetCompare").is(":visible")) {
+                    ResetCompareTix();
+                }
+            }
+            , TicketsSort: {
+                Column: "price"
+			    , Order: "ASC"
+			    , SortType: "numeric"
+            }
+            });
+
+            /************************************************************
+            Filter Ticket List On Ticket Quantity Change (Optional)
+            ************************************************************/
+            $("#TicketQuantity").change(function () {
+                FilterTickets();
+            });
+
+            /************************************************************
+            Filter Ticket List On eTicket Filter Change (Optional)
+            ************************************************************/
+            $("#ETicket").click(function () {
+                FilterTickets();
+            });
+
+            /************************************************************
+            Use if Custom Parking Pass tab is Implemented. (Optional)
+            Used for switching between Ticket list and Parking Passes
+            ************************************************************/
+            $("#Parking").click(function () {
+                SetSearchOptions();
+                $("#MapContainer").tuMap("FilterTickets", "Parking", $("#Parking").is(":checked"));
+            });
+
+            /***********************************************************
+            Sort Ticket List
+            ***********************************************************/
+            $("#TicketSortBy").change(function () {
+                var SortItem = $("#TicketSortBy > option:selected");
+
+                $("#MapContainer").tuMap("SetOptions", {
+                    TicketsSort: {
+                        Column: $("#TicketSortBy").val()
+                        , Order: SortItem.data("sortorder")
+                        , SortType: SortItem.data("sorttype")
+                    }
+                }).tuMap("Refresh");
+            });
+
+        });
+
+        /************************************************************
+        Sorting Quantity Array (Optional)
+        ************************************************************/
+        function sortD(a, b) {
+            return b - a;
+        }
+
+        /************************************************************
+        Filter Ticket List On
+        Ticket Quantity, Price Range or eTicket Filter Change (Optional)
+        ************************************************************/
+        function FilterTickets() {
+            SetSearchOptions();
+            $("#MapContainer").tuMap("Refresh");
+        }
+
+
+
+        /************************************************************
+        Set tuMap Options for Search
+        ************************************************************/
+        function SetSearchOptions() {
+            var MinPrice = Demo.MaxPrice, MaxPrice = Demo.MinPrice;
+            $("#PriceRange input").each(function () {
+                if ($(this).is(":checked")) {
+                    var Min = parseInt($(this).data("min")),
+                        Max = parseInt($(this).data("max"));
+
+                    if (MinPrice == Demo.MaxPrice || MinPrice > Min) {
+                        MinPrice = Min;
+                    }
+                    if (MaxPrice == Demo.MinPrice || MaxPrice < Max) {
+                        MaxPrice = Max;
+                    }
+                }
+            });
+            if (MinPrice != Demo.MaxPrice && MaxPrice != Demo.MinPrice) {
+                $("#PriceRange input").each(function () {
+                    var Min = parseInt($(this).data("min")),
+                            Max = parseInt($(this).data("max"));
+
+                    if (Min >= MinPrice && Max <= MaxPrice) {
+                        $(this).attr("checked", true);
+                    }
+                });
+            }
+            else {
+                MinPrice = Demo.MinPrice;
+                MaxPrice = Demo.MaxPrice;
+            }
+            $("#PriceRange").buttonset("refresh");
+
+            $("#MapContainer").tuMap("SetOptions", {
+                TicketsFilter: {
+                    MinPrice: MinPrice
+				    , MaxPrice: MaxPrice
+                    , Quantity: $("#TicketQuantity").val()
+				    , eTicket: $("#ETicket").is(":checked")
+                }
+            });
+        }
+
+        /************************************************************
+        On Init/ On Error (Optional)
+        ************************************************************/
+        function LoadComplete(ChartLoaded) {
+            /*Remove the Parking Button on the Map*/
+            if ($("#MapContainer div.tuMapControl:contains('Parking')").length > 0) {
+                $("#MapContainer").tuMap("RemoveMapControl", "Parking");
+            }
+
+            //ONLY FOR DEMO
+            Demo.StopLoading();
+        }
+
+        /************************************************************
+        Custom Reset Implemented
+        ************************************************************/
+        function Reset() {
+            $("#PriceRange input, #Parking, #ETicket").removeAttr("checked");
+            $("#PriceRange").buttonset("refresh");
+
+            $("#TicketQuantity").val("");
+            $("#TicketSortBy").val("price");
+
+            var SortItem = $("#TicketSortBy > option:selected");
+
+            $("#MapContainer").tuMap("SetOptions", {
+                TicketsFilter: {
+                    MinPrice: Demo.MinPrice
+				    , MaxPrice: Demo.MaxPrice
+                    , Quantity: $("#TicketQuantity").val()
+				    , eTicket: $("#ETicket").is(":checked")
+                }
+                , TicketsSort: {
+                    Column: $("#TicketSortBy").val()
+                    , Order: SortItem.data("sortorder")
+                    , SortType: SortItem.data("sorttype")
+                }
+            }).tuMap("Refresh");
+        }
+
+        /*Compare Tix*/
+        function CompareTix() {
+            if ($("#InventoryContainer input[type='checkbox']:checked").length > 1) {
+                var Tickets = [];
+                $("#InventoryContainer input[type='checkbox']:checked").each(function () {
+                    Tickets.push($(this).val());
+                });
+
+                $("#MapContainer").tuMap("SetOptions", {
+                    TicketsFilter: {
+                        Ids: Tickets
+                    }
+                }).tuMap("Refresh");
+
+                $("DIV.CompareTixContainer > a.ResetCompare").show();
+            }
+            else {
+                alert("Please, Select at least 2 Tickets to Compare");
+            }
+        }
+
+        /*Reset Compare Tix*/
+        function ResetCompareTix() {
+            $("#MapContainer").tuMap("SetOptions", {
+                TicketsFilter: {
+                    Ids: null
+                }
+            }).tuMap("Refresh");
+
+            $("DIV.CompareTixContainer > a.ResetCompare").hide();
+        }
+
+        function BuyNow(Id, Price) {
+            var Info = "Ticket Id: " + Id;
+            Info += "\nPrice: " + Price;
+            var Qty = 1;
+            if ($("#Qty" + Id)) {
+                Qty = parseInt($("#Qty" + Id).val());
+            }
+            Info += "\nNet Amount: " + Price.substring(0, 1) + (parseFloat(Price.substring(1).replace(/[^\d\.\-\ ]/g, '')) * Qty);
+            alert(Info);
+        }
+
+    </script>
+
+</body>
+</html>

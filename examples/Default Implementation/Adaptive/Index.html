@@ -1,0 +1,254 @@
+<html lang="en">
+<head>
+    <title>Demo - Adaptive Map</title>
+    <!--*******************************************************
+	**********************Required Includes********************
+	********************************************************-->
+	<link href="../../../CSS/tuMap.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../../Lib/jquery-1.10.2.min.js"></script>
+    <!--[if lt IE 9]><script type="text/javascript" src="../../../Lib/excanvas-min.js"></script><![endif]-->
+    <script type="text/javascript" src="../../../Lib/jquery.tuMap-min.js"></script>
+    <script type="text/javascript" src="../../../Lib/jquery.hammer.min.js"></script>
+
+	<!--*******************************************************
+	**********************Optional Includes********************
+	********************************************************-->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"><!-- jQuery UI Style Sheet, Used for Price Slider -->
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script><!-- jQuery UI Library, Used for Price Slider -->
+
+	<!--*******************************************************
+	**********************FOR DEMO ONLY************************
+	********************************************************-->
+    <link href="../../../CSS/font-face.css" rel="stylesheet" type="text/css" /><!-- Custom Web Font(RobotoLight) Used For Demo -->
+    <link href="CSS/style.css" rel="stylesheet" type="text/css" /><!-- Custom Style Sheet Used For Demo to Customize list, Search Bar etc. -->
+    <script type="text/javascript" src="../../Data.js"></script><!-- Min Price, Max Price, Tickets Count, Tickets Array -->
+    <script type="text/javascript" src="../../Demo.js"></script><!-- Common Functions like Show List Loading, Set Height etc. -->
+</head>
+
+<body>
+    <!-- List Container -->
+    <div class="ListContainer" id="ListContainer" style="width: 585px;">
+
+        <!-- Tickets Parking Pass Filter -->
+        <div class="TicketListTab">
+            <ul>
+                <li class="SelectedTicketListTab"><a href="javascript:SwitchList(false);" class="ui-corner-top">Tickets</a> </li>
+                <li><a href="javascript:SwitchList(true);" class="ui-corner-top">Parking Passes</a></li>
+            </ul>
+            <br class="flC" />
+        </div>
+
+        <div id="TicketList" class="ui-widget">
+            <div id="Filters">
+                <div class="InventoryFilter" style="width: 390px;">
+                    <span class="FilterTitle" style="display: inline-block;">Price Range:</span>&nbsp;<span
+                        class="PriceRange"></span>&nbsp;to&nbsp;<span class="PriceRange"></span><br />
+                    <div class="PriceSlider">
+                        <div id="price-range">
+                        </div>
+                    </div>
+                    <br class="FloatClear" />
+                </div>
+                <div class="InventoryFilter" style="margin-right: 0px;">
+                    <span class="FilterTitle">Quantity:</span>
+                    <select id="TicketQuantity">
+                        <option value="" selected="selected">All</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5+">5 Or More</option>
+                    </select>
+                </div>
+                <div class="InventoryFilter" style="margin: 21px 5px 0 0; float: right;">
+                    <input type="checkbox" id="eTicketFilter" /><label for="eTicketFilter" style="vertical-align:top; cursor:pointer;">E-Tickets</label>
+                </div>
+                <br class="FloatClear" />
+            </div>
+            <div class="ui-widget-content ui-corner-bottom Content">
+                <!-- Required Container to load Ticket List -->
+                <div id="InventoryContainer" class="InventoryContainer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="TuMap">
+        <!-- Required Container to load Interactive Map -->
+        <div id="MapContainer" class="MapContainer">
+        </div>
+
+        <!-- Required Container to Interactive Map's Section Groups/Legends List -->
+        <div id="GroupsContainer" class="GroupsContainer">
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+        /************************************************************
+        Initialize Ticket Utils Interactive Map
+        ************************************************************/
+            $("#MapContainer").tuMap({
+                MapId: "dc7c9452-913a-44d8-b820-7b46f03e2712"
+                , MapType: "Interactive"
+                , ControlsPosition: "Outside"
+                , ColorScheme: 1
+                /*Failover Map: Replace this with a URL of the static chart from alternate datasource(when available)*/
+                , FailoverMapUrl: "http://static.ticketutils.com/Charts/No-Seating-Chart.jpg"
+                , Tickets: Data.Tickets
+                , AutoSwitchToStatic: true
+                , PreferredFirst: true
+                , TicketsListContainer: "#InventoryContainer"
+                , GroupsContainer: "#GroupsContainer"
+                , OnError: function (e, Error) {
+                    if (Error.Code == 0) {
+                        var Message = "<div style=\"padding:10px;\">";
+                        Message += "<span style=\"color:red;font-weight:bold;\">This Sample is Configured to run under host 'localhost'</span>";
+                        Message += "<br />";
+                        Message += "Please configure IIS/Apache or Compatible Web Server to point 'demo' folder in order to view the Sample. If you intend to Run it under different Domain, please contact TicketUtils Support for Activation";
+                        Message += "</div>";
+                        $("#MapContainer").html(Message);
+                    }
+
+                    InitSlider(false);
+                }
+                , OnBeforeListRender: function () {
+                    /*Remove the Parking Button on the Map*/
+                    if ($("#MapContainer div.tuMapControl:contains('Parking')").length > 0) {
+                        $("#MapContainer").tuMap("RemoveMapControl", "Parking");
+                    }
+                    else {
+                        $(".TicketListTab").remove();
+                    }
+
+                    var Height = $("#TuMap").height();
+                    Height -= $("DIV.TicketListTab").outerHeight();
+                    Height -= $("#Filters").outerHeight();
+                    $("#InventoryContainer").outerHeight(Height);
+                }
+                , OnInit: function (e, MapType) {
+                    InitSlider(true);
+                }
+                , OnReset: function () {
+                    var min = $("#price-range").slider("option", "min"),
+                        max = $("#price-range").slider("option", "max");
+
+                    $($("span.PriceRange")[0]).html("$" + min);
+                    $($("span.PriceRange")[1]).html("$" + max);
+
+                    $("#price-range").slider("option", "values", [min, max]);
+                    $("#eTicketFilter").removeAttr("checked");
+                    $("#TicketQuantity").val("");
+
+                    FilterTickets();
+                }
+            });
+        
+            /************************************************************
+            Create Price Range Slider (Optional)
+            ************************************************************/
+            $("#price-range").slider({
+                range: true
+			    , slide: function (event, ui) {
+			        $($("span.PriceRange")[0]).html("$" + ui.values[0]);
+			        $($("span.PriceRange")[1]).html("$" + ui.values[1]);
+			    }
+			    , stop: function (event, ui) {
+			        FilterTickets();
+			    }
+            });
+
+            /************************************************************
+            Filter Ticket List On Ticket Quantity Change (Optional)
+            ************************************************************/
+            $("#TicketQuantity").change(function () {
+                FilterTickets();
+            });
+
+            /************************************************************
+            Filter Ticket List On eTicket Filter Change (Optional)
+            ************************************************************/
+            $("#eTicketFilter").click(function () {
+                FilterTickets();
+            });
+
+            /************************************************************
+            Implementation Changer (Optional)
+            ************************************************************/
+            $("DIV.ChangeDemoType").hover(function () {
+                $(this).find("ul").stop().slideDown(200);
+            }, function () {
+                $(this).find("ul").stop().slideUp(200);
+            });
+
+        });
+
+
+        /************************************************************
+        Set Price Slider Values. (Optional)
+        Set Price Range Marker Text. (Optional)
+        Remove Parking Button from Map.(If Custom Parking Pass tab is Implemented)
+        ************************************************************/
+        function InitSlider(ChartLoaded) {
+            //ONLY FOR DEMO
+            Demo.StopLoading();
+
+            /*Set Minimum and Maximum Price from your Dataset*/
+            var Min = Data.MinPrice, Max = Data.MaxPrice;
+
+            $("#price-range").slider("option", {
+                min: Min,
+                max: Max,
+                values: [Min, Max]
+            });
+
+            $($("span.PriceRange")[0]).html("$" + Min);
+            $($("span.PriceRange")[1]).html("$" + Max);
+
+            /*Add Price Markers*/
+            $("#price-range span.Marker").remove();
+            $("#price-range").append($("<span>").attr("class", "Marker").attr("style", "float:left;").html("$" + Min));
+            $("#price-range").append($("<span>").attr("class", "Marker").attr("style", "float:right;").html("$" + Max));
+
+            /*Set Price Markers position*/
+            var label = $($("#price-range").children("span")[0]);
+            label.css("margin-left", (label.width() / 2) * -1);
+            label = $($("#price-range").children("span")[1]);
+            label.css("margin-right", (label.width() / 2) * -1);
+
+            if (!ChartLoaded) $(".TicketListTab").remove();
+        }
+
+
+        /************************************************************
+        Use if Custom Parking Pass tab is Implemented. (Optional)
+        Used for switching between Ticket list and Parking Passes
+        ************************************************************/
+        function SwitchList(ParkingPassesOnly) {
+            $(".TicketListTab li").removeClass("SelectedTicketListTab");
+            $($(".TicketListTab li")[ParkingPassesOnly ? 1 : 0]).addClass("SelectedTicketListTab");
+
+            /*Filter the Parking Tickets*/
+            $("#MapContainer").tuMap("FilterTickets", "Parking", ParkingPassesOnly);
+        }
+
+        /************************************************************
+        Filter Ticket List On
+        Ticket Quantity, Price Range or eTicket Filter Change (Optional)
+        ************************************************************/
+        function FilterTickets() {
+            var PriceRange = $("#price-range").slider("option", "values");
+
+            $("#MapContainer").tuMap("SetOptions", {
+                TicketsFilter: {
+                    MinPrice: PriceRange[0]
+				    , MaxPrice: PriceRange[1]
+				    , Quantity: $("#TicketQuantity").val()
+				    , eTicket: $("#eTicketFilter").is(":checked")
+                }
+            }).tuMap("Refresh");
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+body {
+    color: #555555;
+    font-family: RobotoLight,arial,sans-serif;
+    font-size: 13px !important;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+}
+
+a {
+    text-decoration: none;
+}
+
+.FloatClear {
+    clear: both;
+    line-height: 0;
+}
+
+/******Filters*******/
+div#Filters {
+    background: none repeat scroll 0 0 #85CAFF;
+    border: 1px solid #0895E7;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.InventoryFilter {
+    float: left;
+    font-family: Arial;
+    font-size: 13px;
+    padding: 2px;
+}
+
+    .InventoryFilter .FilterTitle {
+        color: #333333 !important;
+        display: block;
+        font: bold 12px arial !important;
+        padding-bottom: 5px;
+    }
+
+    .InventoryFilter .PriceRange {
+        background: none repeat scroll 0 0 #777777;
+        border: 1px solid #333333;
+        border-radius: 3px;
+        box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+        color: #FFFFFF;
+        font-size: 11px;
+        padding: 1px 3px;
+        text-align: center;
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    }
+    /***************Price-Slider***************/
+
+    .InventoryFilter .PriceSlider {
+        margin: 3px 10px 0;
+        text-align: center;
+        width: 350px;
+    }
+
+    .InventoryFilter .ui-slider .ui-slider-range {
+        background: -moz-linear-gradient(center top, #02B200, #01783A) repeat scroll 0 0 rgba(0, 0, 0, 0);
+        opacity: 0.7;
+    }
+
+    .InventoryFilter .ui-slider-horizontal .ui-slider-handle {
+        margin-left: -0.6em !important;
+    }
+
+    .InventoryFilter .PriceSlider a {
+        border: 5px solid #444444;
+        border-radius: 50%;
+        cursor: pointer;
+        display: block;
+        height: 8px;
+        margin: 0;
+        padding: 0;
+        width: 8px;
+    }
+
+    .InventoryFilter .PriceSlider .Marker {
+        background-color: #FFF9C8;
+        border-radius: 2px;
+        color: #444444;
+        font-family: Verdana;
+        font-size: 8px;
+        font-weight: normal;
+        line-height: normal;
+        margin-top: 15px;
+        padding: 1px;
+    }
+    /**************Quantity Filter******************/
+    .InventoryFilter .FilterTitle {
+        color: #333333 !important;
+        display: block;
+        font: bold 12px arial !important;
+        padding-bottom: 5px;
+    }
+
+/**************tuMapPreferredFilter***************/
+span.tuMapeTicket, .tuMapeTicket span.Icon {
+    background: url("../IMG/eTicket.png") no-repeat scroll center center rgba(0, 0, 0, 0) !important;
+    display: inline-block;
+    height: 20px;
+    width: 19px;
+}
+
+/**********ListContainer**************/
+.ListContainer {
+    float: left;
+    position:relative;
+}
+
+#ListContainer {
+    min-height: 100px;
+}
+
+.tuMapTicketList th {
+    font-size: 13px;
+}
+
+.tuMapTicketList td {
+    font-size: 13px;
+}
+/*************MapContainer**************/
+#TuMap {
+    overflow: hidden;
+}
+/****************SectionViewContainer******************/
+#SectionViewContainer {
+    height: auto;
+}

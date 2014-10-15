@@ -1,0 +1,7 @@
+﻿.Overlay
+{
+    position: absolute;
+    z-index: 100;
+    margin: 0px;
+    display: none;
+}

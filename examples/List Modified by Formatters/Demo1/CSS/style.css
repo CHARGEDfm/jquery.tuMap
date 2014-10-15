@@ -1,0 +1,344 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font:normal 14px RobotoLight;
+    background:url("../IMG/Bg.jpg");
+}
+
+a {
+    text-decoration: none;
+}
+.flC {
+    clear:both;
+}
+div.LeftAlign {
+    float: left;
+}
+
+div.RightAlign {
+    float: right;
+}
+
+div.ZoomControls {
+    display:none;
+}
+
+
+DIV.GradientBg {
+    background: -moz-linear-gradient(top, #F6F6F6 60px, rgba(255,255,255,0) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(60px,#F6F6F6), color-stop(100%,rgba(255,255,255,0)));
+    background: -webkit-linear-gradient(top, #F6F6F6 60px,rgba(255,255,255,0) 100%);
+    background: -o-linear-gradient(top, #F6F6F6 60px,rgba(255,255,255,0) 100%);
+    background: -ms-linear-gradient(top, #F6F6F6 60px,rgba(255,255,255,0) 100%);
+    background: linear-gradient(to bottom, #F6F6F6 60px,rgba(255,255,255,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F6F6F6', endColorstr='#00ffffff',GradientType=0 );
+}
+
+/******Filter*******/
+div.Filters {
+    background: #626262;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+    div.Filters > div {
+        display: inline-block;
+        text-align: left;
+    }
+
+        div.Filters > div > div {
+            padding: 5px;
+        }
+
+    div.Filters a.Buttons, #ZoneSelector {
+        font: normal 16px Robotolight;
+        display: inline-block;
+        padding: 3px 5px;
+        color: #fff;
+        background-color: #343434;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#484848', endColorstr='#343434'); /* for IE */
+        background: -webkit-gradient(linear, left top, left bottom, from(#484848), to(#343434)); /* for webkit browsers */
+        background: -moz-linear-gradient(top, #484848, #343434); /* for firefox 3.6+ */
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border: 1px solid #282828;
+        margin: 10px 5px 7px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        div.Filters a.Buttons.Disabled {
+            background: #6f6e6e;
+            border-color: #605f5f;
+        }
+
+        div.Filters a.Buttons:not(.Disabled):hover, #ZoneSelector:hover {
+            background-color: #343434;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#484848', endColorstr='#000'); /* for IE */
+            background: -webkit-gradient(linear, left top, left bottom, from(#484848), to(#000)); /* for webkit browsers */
+            background: -moz-linear-gradient(top, #484848, #000); /* for firefox 3.6+ */
+        }
+
+        div.Filters a.Buttons.ZoomIn b, div.Filters a.Buttons.ZoomOut b {
+            display: inline-block;
+            vertical-align: top;
+            width: 16px;
+            height: 16px;
+            margin: 2px 0 0 4px;
+            background: url("../IMG/ZoomIn-ZoomOut.png") no-repeat;
+        }
+
+        div.Filters a.Buttons.ZoomOut b {
+            background-position: -16px 0;
+        }
+
+    div.Filters h3 {
+        color: #F4F4F4;
+        font-size: 22px;
+        font-weight: normal;
+        margin: 10px;
+    }
+
+        div.Filters h3 span {
+            color: #FE6000;
+            font-family: MetaBlack,"Trebuchet MS",sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-align: left;
+        }
+
+    div.Filters span.Title {
+        display: block;
+    }
+
+/***************Price-Slider***************/
+
+div.PriceSlider {
+    padding-top: 6px;
+}
+
+div#price-range {
+    border-color: #282828;
+    height: 7px;
+}
+
+div#price-range {
+    height: 7px;
+    border-color: #282828;
+}
+
+    div#price-range > div.ui-slider-range {
+        background-color: #343434;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#484848', endColorstr='#343434'); /* for IE */
+        background: -webkit-gradient(linear, left top, left bottom, from(#484848), to(#343434)); /* for webkit browsers */
+        background: -moz-linear-gradient(top, #484848, #343434); /* for firefox 3.6+ */
+    }
+
+    div#price-range > a {
+        width: 10px;
+        height: 15px;
+        background: #fff;
+        position: relative;
+        display: inline-block;
+        margin-left: -13px;
+    }
+
+        div#price-range > a:after {
+            content: "";
+            position: absolute;
+            border-bottom: 5px solid #fff;
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+            margin-top: -3px;
+        }
+
+div.PriceSlider .Marker {
+    color: #444444;
+    font-size: 8px;
+    font-family: Verdana;
+    margin: 13px 0 -4px;
+    font-weight: normal;
+    padding: 1px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    background-color: #fff9c8;
+    line-height: normal;
+}
+/*********ZoneSelector*********/
+#ZoneSelector {
+    display: none;
+    position: relative;
+    z-index: 101;
+}
+#ZoneSelector > b {
+    background: url("../IMG/UpDown.png") no-repeat scroll center bottom rgba(0, 0, 0, 0);
+    display: block;
+    float: right;
+    height: 7px;
+    margin: 5px 0 0 5px;
+    width: 10px;
+}
+div.ZoneOverlay {
+    background-color: #F6F5F5;
+    border-radius: 0 3px 3px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 7px;
+}
+div#GroupsContainer {
+    position: absolute;
+    top: -1000px;
+    width: 400px;
+}
+#ZoneSelector.Active {
+    background: none repeat scroll 0 0 #F6F5F5;
+    border-bottom: medium none #F6F5F5;
+    border-color: #F6F5F5;
+    border-radius: 3px 3px 0 0;
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.2);
+    color: #000000;
+}
+#ZoneSelector.Active > b {
+    background-position: center top;
+}
+/**********ChartListContainer***************/
+DIV#ChartListContainer {
+    margin: 0 auto;
+    position: relative;
+}
+.TicketListContainer {
+    background: none repeat scroll 0 0 #F2F2F2;
+    float: right;
+    position: relative;
+    width: 350px;
+}
+div.PreferdFilter {
+    background: none repeat scroll 0 0 #E6E6E6;
+    padding: 5px 7px;
+}
+div.PreferdFilter * {
+    font-size: 11px;
+    vertical-align: middle;
+}
+.tuMapPreferredFilter {
+    background: none repeat scroll 0 0 #E6E6E6;
+    color: #FFFFFF;
+    display: none;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+div.tuMapPreferred span.Icon {
+    display: inline-block;
+    height: 13px;
+    margin: 0 2px;
+    width: 13px;
+}
+div.tuMapTicketList > div {
+    overflow-y: scroll !important;
+    padding: 5px;
+}
+#TuMap {
+    background: none repeat scroll 0 0 #FFFFFF;
+    min-width: 300px;
+    overflow: hidden;
+    padding: 5px;
+}
+/**************TicketList*****************/
+
+.tuMapTicketList tr.EvenRow {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+.TicketRow {
+    font-size: 13px !important;
+    background:#f1f1f1;
+    padding: 0 !important;
+    vertical-align: top;
+}
+.TicketRow div.TicketRightSection {
+    float: right;
+    width: 75px;
+	padding:3px;
+}
+.TicketRow > DIV {
+    padding: 0 0;
+    min-height:80px;
+    border-top:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    margin:1px 0;
+    background:#fff;
+}
+.TicketRow div.TicketRightSection span.price {
+    color: #000080;
+    display: block;
+    font-weight: bold;
+}
+.TicketRow input[type="button"], .HideShowListButton {
+    color: #FFFFFF;
+    cursor: pointer;
+    font: bold 13px Trebuchet, "Trebuchet MS" !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAB114', endColorstr='#F76808'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#FAB114), to(#F76808)); /* for webkit browsers */
+    background: -moz-linear-gradient(top, #FAB114, #F76808); /* for firefox 3.6+ */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 1px 0 1px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    padding: 1px 5px;
+    font: bold 13px Trebuchet, "Trebuchet MS" !important;
+}
+.TicketRow div.TicketLeftSection {
+    overflow: hidden;
+    padding: 3px 10px 3px 2px;
+    text-align: left;
+}
+.TicketRow div.TicketLeftSection span.title {
+    font-weight: bold;
+}
+.TicketLeftSection > span {
+    float: left;
+    margin: 0 4px;
+}
+.TicketRow span.Preferred {
+    background: url("/../IMG/preferred.png")no-repeat scroll center center rgba(0, 0, 0, 0);
+    float: left;
+}
+.TicketRow span.smallIcon {
+    background-position: center center;
+    display: inline-block;
+    height: 17px;
+    width: 17px;
+}
+.TicketLeftSection > span.QTY {
+    float: right !important;
+}
+.TicketRow div.TicketBot {
+    background: none repeat scroll 0 0 #E6E6E6;
+    clear: both;
+    padding: 3px;
+    text-align: right;
+}
+.TicketRow div.TicketBot > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+.TicketRow span.eTicket {
+    background: url("../IMG/eTicket.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 20px;
+    width: 19px;
+}
+.TicketRow div.TicketLeftSection span.Note {
+    background: url("../IMG/info.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    float: left;
+    margin-left: 3px;
+}
+.TicketRow span.eDelivery {
+    color: #009900;
+    font: bold 13px arial;
+    margin-left: 5px;
+}
+

@@ -1,0 +1,335 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font:normal 14px RobotoLight;
+    overflow-y:scroll;
+    background:url("../IMG/Bg.jpg");
+}
+
+
+/********************************************************************
+List and Map Containers
+*********************************************************************/
+DIV.GradientBg {
+    background: -moz-linear-gradient(top, #F6F6F6 60px, rgba(255,255,255,0) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(60px,#F6F6F6), color-stop(100%,rgba(255,255,255,0)));
+    background: -webkit-linear-gradient(top, #F6F6F6 60px,rgba(255,255,255,0) 100%);
+    background: -o-linear-gradient(top, #F6F6F6 60px,rgba(255,255,255,0) 100%);
+    background: -ms-linear-gradient(top, #F6F6F6 60px,rgba(255,255,255,0) 100%);
+    background: linear-gradient(to bottom, #F6F6F6 60px,rgba(255,255,255,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F6F6F6', endColorstr='#00ffffff',GradientType=0 );
+}
+DIV#ChartListContainer {
+    margin: 0 auto;
+    position: relative;
+}
+DIV.TicketListContainer
+{
+    background:#dff1fb;
+    width:350px;
+    min-height:100px;
+    float:left;
+    position:relative;
+}
+#TuMap {
+    overflow: hidden; 
+    min-width: 300px;
+    background:#FFF;
+    padding:5px;
+}
+div#GroupsContainer {
+    position:absolute;
+    top:-1000px;
+    width:400px;
+}
+
+
+/********************************************************************
+List Header
+*********************************************************************/
+DIV.ListHeaderSection h3
+{
+    padding: 7px 10px 0;
+    margin: 0;
+}
+DIV.ListHeaderSection h3 span
+{
+    display: inline;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: normal;
+    color: #FE6000;
+}
+DIV.ListHeaderSection > span
+{
+    font-family: Arial;
+    font-size: 13px;
+    color: #666666;
+    padding: 0 10px 10px 10px;
+}
+DIV.CompareTixContainer {
+    background: #f9f9f9;
+    color: #000;
+    height: 43px;
+    overflow:hidden;
+    border-bottom:1px solid #f9f9f9;
+    margin-bottom:-3px;
+    border-left:1px solid #CCC;
+}
+DIV.CompareTixContainer > a.Compare {
+    padding:3px 5px;
+    color:#fff;
+    background-color:#343434;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#484848', endColorstr='#343434'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#484848), to(#343434)); /* for webkit browsers */
+    background: -moz-linear-gradient(top, #484848, #343434); /* for firefox 3.6+ */
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border:1px solid #282828;
+    margin:5px;
+    display:inline-block;
+    text-decoration:none;
+}
+DIV.CompareTixContainer > a.ResetCompare {
+    position: absolute;
+    font: 10px Arial;
+    text-decoration: none;
+    margin: -3px 0 0 21px;
+    display:none;
+}
+/* Zone Selector*/
+#ZoneSelector {
+    background-color:#343434;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#484848', endColorstr='#343434'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#484848), to(#343434)); /* for webkit browsers */
+    background: -moz-linear-gradient(top, #484848, #343434); /* for firefox 3.6+ */
+    border: 1px solid #282828;
+    border-radius: 3px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    font: 16px Robotolight;
+    margin: 15px 10px 0 0;
+    padding: 3px 5px;
+    position: relative;
+    text-decoration: none;
+    z-index: 101;
+}
+#ZoneSelector:hover {
+    background-color:#343434;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#484848', endColorstr='#000'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#484848), to(#000)); /* for webkit browsers */
+    background: -moz-linear-gradient(top, #484848, #000); /* for firefox 3.6+ */
+}
+#ZoneSelector > b {
+    display:block;
+    float:right;
+    width:10px;
+    height:7px;
+    margin:5px 0 0 5px; 
+    background:url("../IMG/UpDown.png") no-repeat center bottom;
+}
+#ZoneSelector.Active {
+    border-radius:3px 3px 0 0;
+    -moz-border-radius:3px 3px 0 0;
+    -webkit-border-radius:3px 3px 0 0;
+    border-bottom:none;
+    background:#f6f5f5;
+    border-color:#f6f5f5;
+    color:#000;
+    box-shadow:0px -2px 5px rgba(0,0,0,0.2);
+    -moz-box-shadow:0px -2px 5px rgba(0,0,0,0.2);
+    -webkit-box-shadow:0px -2px 5px rgba(0,0,0,0.2);
+}
+#ZoneSelector.Active > b {
+    background-position:center top;
+}
+
+div.ZoneOverlay {
+    background-color:#f6f5f5;
+    box-shadow:0px 0px 5px rgba(0,0,0,0.5);
+    -moz-box-shadow:0px 0px 5px rgba(0,0,0,0.5);
+    -webkit-box-shadow:0px 0px 5px rgba(0,0,0,0.5);
+    padding:7px;
+    border-radius:0 3px 3px 3px;
+    -moz-border-radius:0 3px 3px 3px;
+    -webkit-border-radius:0 3px 3px 3px;
+}
+div.ZoneOverlay .tuMapActiveGroupsContainer .tuMapGroup:not(.Disabled) .tuMapGroupTitle:hover {
+    text-decoration:none;
+    color:#830000;
+}
+div.ZoneOverlay .tuMapGroup.Disabled {
+    opacity:0.5;
+}
+div.ZoneOverlay .tuMapGroup.Disabled > span.tuMapGroupColor {
+    background:url("../IMG/ZoneSelector.png") no-repeat center top;
+}
+div.ZoneOverlay .tuMapGroup.Disabled > span.tuMapGroupTitle {
+    text-decoration:none;
+}
+div.ZoneOverlay .tuMapGroupChecked > span.tuMapGroupColor {
+    background:url("../IMG/ZoneSelector.png") no-repeat center bottom;
+}
+
+.TicketListSearchContainer
+{
+    margin: 5px 0 0;
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    font-family: Arial;
+    font-size: 13px;
+    background:#484848;
+    color:#fff;
+}
+
+.TicketListSearchContainer > DIV
+{
+    float:left;
+    padding:3px;
+}
+.TicketListSearchContainer > DIV > .Title
+{
+    display:block;
+    padding-bottom:3px;
+    font-weight:bold;
+}
+.TicketListSearchContainer > DIV > .Title.eTicket
+{
+    padding-left:20px;
+    background:url(/../IMG/eticket.png) no-repeat 2px 0;
+}
+
+
+/********************************************************************
+Ticket List
+*********************************************************************/
+DIV#InventoryContainer > .tuMapPreferredFilter {
+    display:none;
+    height:0px;
+    padding:0px;
+    margin:0px;
+}
+.TicketRow
+{
+    padding: 3px !important;
+    margin: 0;
+    vertical-align:top;
+}
+.TicketRow.IconTd
+{
+    padding: 3px 0px !important;
+    width:20px;
+    vertical-align:top;
+    position:relative;
+}
+.TicketRow div.TicketLeftSection
+{
+    overflow:hidden;
+    text-align:left;
+    padding:0 10px 0 2px;
+}
+.TicketRow div.TicketLeftSection span.title
+{
+    font-weight:bold;
+}
+.TicketRow div.TicketLeftSection span.Note
+{
+    background: url("/../IMG/info.png") no-repeat;
+    float:right;
+}
+.TicketRow span.smallIcon
+{
+    width:19px;
+    height:20px;
+    display:inline-block;
+    background-position:center;
+}
+.TicketRow span.Preferred
+{
+    background: url("/../IMG/preferred.png") no-repeat center;
+}
+.tuMapTicketList tr:hover
+{
+    background:#f6f498 !important;
+}
+.TicketRow span.eTicket
+{
+    background: url("/../IMG/eticket.png") no-repeat center;
+    margin:8px 0 -5px 1px;
+}
+.TicketRow span.eDelivery {
+    color: #009900;
+    font: bold 12px arial;
+    text-align: left;
+    display:block;
+}
+.TicketRow div.TicketRightSection
+{
+    float: right;
+    width:75px;
+}
+.TicketRow div.TicketRightSection span.price
+{
+    display:inline-block;
+    font-weight:bold;
+    color:Navy;
+    padding:5px;
+    display:block;
+}
+.TicketRow div.TicketRightSection span.price i {
+    font-style:normal;
+    padding-right:2px;
+    font-size:80%;
+    color:#444;
+}
+.TicketRow div.Note
+{
+    float: none;
+    text-align: left;
+    width: 100%;
+    padding: 5px 2px 2px 2px;
+}
+.TicketRow div.Note span.title
+{
+    display: inline;
+    font: bold 13px arial;
+    color: #A01300;
+}
+.TicketRow input[type="button"]
+{
+    color: #FFFFFF;
+    cursor: pointer;
+    font: bold 13px Trebuchet, "Trebuchet MS" !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAB114', endColorstr='#F76808'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#FAB114), to(#F76808)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #FAB114,  #F76808); /* for firefox 3.6+ */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 1px 0 1px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    padding: 1px 5px;
+    font: bold 13px Trebuchet, "Trebuchet MS" !important;
+}
+
+.TicketRow input[type="button"]:hover, .HideShowListButton:hover
+{
+    color: #000000;
+    text-shadow: 0 0 0;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F76808', endColorstr='#FAB114'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#F76808), to(#FAB114)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #F76808,  #FAB114); /* for firefox 3.6+ */
+}
+
+.TicketRow.Compare {
+    background:#f9f9f9;
+    border-right:1px solid #eee;
+    border-left:1px solid #CCC;
+    vertical-align:middle;
+}

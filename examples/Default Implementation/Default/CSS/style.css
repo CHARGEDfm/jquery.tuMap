@@ -1,0 +1,321 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font:normal 14px RobotoLight;
+    overflow-y:scroll;
+    background:url("../IMG/Bg.jpg");
+}
+
+.flC {
+    clear:both;
+}
+
+.SampleContainer
+{
+    background: #FEFEFE;
+    /*width: 1100px;
+    margin: 15px auto;*/
+}
+
+h3
+{
+    color: #484848;
+    font-size: 22px;
+    margin: 10px;
+    font-style: italic;
+    font-weight: normal;
+}
+h3 span
+{
+    display: block;
+    font-family: MetaBlack, "Trebuchet MS" ,sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: -0.02em;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 130%;
+}
+
+/* Sample Sections Tab*/
+.SampleSectionsTab
+{
+    border-bottom: 2px solid #83B4F9;
+    margin-bottom:8px;
+}
+.TicketListTab
+{
+    border-bottom: 2px solid #333333;
+    padding-top:5px;
+    background:#d4d4d4;
+}
+.SampleSectionsTab ul, .TicketListTab UL
+{
+    padding: 0 0 0 10px;
+    margin: 0;
+    list-style: none;
+    float:left;
+}
+.SampleSectionsTab li, .TicketListTab LI
+{
+    display: inline-block;
+    position: relative;
+}
+.SampleSectionsTab ul a
+{
+    background-color: #C6E2FE;
+    color: #333333;
+    font-family: "Trebuchet MS" ,sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: block;
+    text-align: center;
+}
+.TicketListTab UL A
+{
+    background-color: #EAEAEA;
+    color: #000000;
+    font-family: "Trebuchet MS" ,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: block;
+    text-align: center;
+}
+.TicketListTab .SelectedTicketListTab a
+{
+    background-color: #333333;
+    color: #FFFFFF;
+}
+
+.SampleSectionsTab a:hover, .SampleSectionsTab .SelectedSampleTab a
+{
+    background-color: #83B4F9;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+
+#TicketList > div.ui-widget-header {
+    background:#c0daff;
+}
+
+/*.MapContainer
+{
+    width: 500px;
+    height: 500px;
+}*/
+/*.GroupsContainer
+{
+    width: 500px;
+}*/
+.PriceColumn
+{
+    font-size: 15px;
+    font-weight: bold;
+    text-align: right;
+    color: blue;
+}
+
+.Footer
+{
+    border-top: 1px solid #83B4F9;
+    padding: 5px;
+    font: 12px arial;
+}
+
+
+.DemoLink
+{
+    float: right;
+    margin-top: 10px;
+}
+
+.TUDemos li
+{
+    border-bottom: 1px dotted;
+    padding: 10px;
+}
+.TUDemos span
+{
+    margin-bottom: 10px;
+    color: #484848;
+    font-size: 18px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.ListContainer
+{
+    float: left;
+	width:500px;
+}
+
+.ChartSelector {
+    border-radius:7px;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    background-color:#EEE;
+    margin-bottom:10px;
+}
+
+.ChartSelector span {
+    display:inline-block;
+    padding:7px;
+}
+
+.InventoryFilter
+{
+    float: left;
+    padding: 2px;
+    font-family: Arial;
+    font-size: 13px;
+}
+.InventoryFilter .FilterTitle
+{
+    color: #333333 !important;
+    font: bold 12px arial !important;
+    display: block;
+    padding-bottom: 5px;
+}
+.InventoryFilter .PriceRange
+{
+    background: #777777;
+    border: 1px solid #333333;
+    padding: 1px 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #ffffff;
+    font-size:11px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    text-align: center;
+    box-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+}
+.InventoryFilter .PriceSlider
+{
+    width: 270px;
+    margin: 3px 10px 0;
+    text-align: center;
+}
+.InventoryFilter .PriceSlider a
+{
+    display: block;
+    padding: 0;
+    margin: 0;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border:5px solid #444444;
+    cursor:pointer;
+}
+.InventoryFilter .PriceSlider .Marker
+{
+    color:#444444;
+    font-size:8px;
+    font-family:Verdana;
+    margin-top: 15px;
+    font-weight:normal;
+    padding:1px;
+    border-radius:2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    background-color:#fff9c8;
+    line-height:normal;
+}
+
+.InventoryFilter .ui-slider-horizontal .ui-slider-handle
+{
+    margin-left: -0.6em !important;
+}
+.InventoryFilter .ui-slider .ui-slider-range
+{
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#02b200', endColorstr='#01783a'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#02b200), to(#01783a)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #02b200,  #01783a); /* for firefox 3.6+ */
+    opacity:0.7;
+}
+
+.InventoryFilter input[type="button"]
+{
+    color: #FFFFFF;
+    cursor: pointer;
+    font: bold 13px Trebuchet, "Trebuchet MS" !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5EB2E7', endColorstr='#155BB9'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#5EB2E7), to(#155BB9)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #5EB2E7,  #155BB9); /* for firefox 3.6+ */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 1px 0 1px rgba(0, 0, 0, 0.5);
+    padding: 1px 5px;
+}
+
+.InventoryFilter input[type="button"]:hover
+{
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0E64A5', endColorstr='#072F59'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#0E64A5), to(#072F59)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #0E64A5,  #072F59); /* for firefox 3.6+ */
+}
+.FloatClear
+{
+    clear: both;
+    line-height: 0;
+}
+
+#TuMap {
+    float:left; 
+    padding: 0px; 
+    width: 500px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0 0 2px rgba(0,0,0,0.7);
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.7);
+    margin:0;
+    background:#FFF;
+}
+
+#SectionViewContainer {
+    background:red;
+    width:250px;
+    height:125px;
+    position:absolute;
+    margin-left:-255px;
+    border-radius:8px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    background-color:#fff2bd;
+    box-shadow:0px 0px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow:0px 0px 2px rgba(0,0,0,0.5);
+    -webkit-box-shadow:0px 0px 2px rgba(0,0,0,0.5);
+    z-index:3;
+    display:none;
+    padding:4px;
+}
+#SectionViewContainer:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    border-color: transparent transparent transparent #fff2bd;
+    border-style: solid;
+    border-width: 10px;
+    height: 0px;
+    width: 0px;
+    margin-top: -10px;
+}
+
+div.tuMapGroupsContainer {
+    border-top:1px solid #DCDCDC;
+    background:#f1f1f1;
+}
+.tuMapeTicket {
+    margin-left:5px;
+}

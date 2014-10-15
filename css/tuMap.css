@@ -1,0 +1,412 @@
+/*********************************************************************
+    Map Container
+*********************************************************************/
+.tuMapContainer{
+	min-height:300px;
+	min-width:300px;
+}
+.tuMapContainer .ZoomControls
+{
+    position:absolute;
+    top:5px;
+    left:5px;
+}
+.tuMapContainer .ZoomControls div
+{
+    width:22px;
+    height:19px;
+    margin-bottom:5px;
+    display:block;
+    font-size:14px;
+    background-color:#FFFFFF;
+    border:0;
+    background-image:url(../IMG/Zoom.png);
+    background-repeat:no-repeat;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    cursor:pointer;
+}
+.tuMapContainer .ZoomControls .ZoomIn
+{
+    background-position:-26px -3px;
+}
+.tuMapContainer .ZoomControls .ZoomOut
+{
+   background-position:-1px -3px
+    
+}
+
+
+/*********************************************************************
+    Ticket List
+*********************************************************************/
+.tuMapTicketList
+{
+    width: 100%;
+    font-size:13px;
+}
+.tuMapTicketList tr.EvenRow
+{
+    background:#F3F3F3;
+}
+
+.tuMapPreferredFilter
+{
+	padding-top:2px;
+}
+.tuMapPreferredFilter div
+{
+	float:left;
+}
+.tuMapPreferredFilter div > * {
+    vertical-align:middle;
+}
+.tuMapPreferredFilter span.Icon, span.tuMapPreferred, span.tuMapeTicket
+{
+    display:inline-block;
+	width:16px;
+	height:16px;
+	margin:0 2px;
+}
+.tuMapeTicket span.Icon, span.tuMapeTicket
+{
+	background: url("../IMG/eticket.png") no-repeat;
+}
+.tuMapPreferred span.Icon, span.tuMapPreferred
+{
+	background: url("../IMG/preferred.png") no-repeat;
+}
+.tuMapTicketList tr.OddRow
+{
+    background:#FFFFFF;
+}
+.tuMapTicketList tr:hover
+{
+    background:#BDFFBA;
+}
+.tuMapTicketList th
+{
+    background: #145db5;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#487FC2', endColorstr='#145db5'); /* for IE */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#487FC2), to(#145db5)); /* for webkit browsers */
+    background-image: -moz-linear-gradient(top, #487FC2, #145db5); /* for firefox 3.6+ */
+    background-image: -o-linear-gradient(top, #487FC2, #145db5);
+    background-image: linear-gradient(#487FC2, #145db5);
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 1px 1px 1px #333333;
+    padding: 5px;
+}
+.tuMapTicketList th.Sort
+{
+	cursor: pointer;
+}
+.tuMapTicketList th.Sort span
+{
+    background: url("../IMG/sort.png") no-repeat right center;
+	display:inline-block;
+    padding-right:15px;
+}
+.tuMapTicketList th.ASC span
+{
+    background: url("../IMG/asc.png") no-repeat right center;
+}
+.tuMapTicketList th.DESC span
+{
+    background: url("../IMG/desc.png") no-repeat right center;
+}
+.tuMapTicketList td
+{
+    text-align: center;
+    padding: 5px;
+}
+.tuMapTicketList select {
+    min-width:45px;
+}
+.tuMapTicketList .Notes
+{
+	background: url("../IMG/note.png") no-repeat center;
+	display:inline-block;
+	width:20px;
+	height:20px;
+	margin:-2px 0 -6px;
+}
+.tuMapTicketList .BuyLink
+{
+    color: #000000;
+    text-shadow:1px 1px 0 rgba(255, 255, 255, 0.5); 
+    background-color:#FBD27E;
+    border:1px solid #E8AC47;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF4D6', endColorstr='#F7B739'); /* for IE */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FFF4D6), to(#F7B739)); /* for webkit browsers */
+    background-image: -moz-linear-gradient(top, #FFF4D6, #F7B739); /* for firefox 3.6+ */
+    background-image: -o-linear-gradient(top, #FFF4D6, #F7B739);
+    background-image: linear-gradient(#FFF4D6, #F7B739);
+    cursor: pointer;
+    padding: 2px 5px;
+    -moz-border-radius: 5px /*{cornerRadius}*/;
+    -webkit-border-radius: 5px /*{cornerRadius}*/;
+    border-radius: 5px /*{cornerRadius}*/;
+    text-decoration:none;
+}
+.tuMapTicketList .BuyLink:hover
+{
+    background-color:#fac861;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF4D6', endColorstr='#FF9000'); /* for IE */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FFF4D6), to(#FF9000)); /* for webkit browsers */
+    background-image: -moz-linear-gradient(top, #FFF4D6, #FF9000); /* for firefox 3.6+ */
+    background-image: -o-linear-gradient(top, #FFF4D6, #FF9000);
+    background-image: linear-gradient(#FFF4D6, #FF9000)
+}
+
+.tuMapPreferredFilter{
+	font-size:13px;
+	text-align:left;
+}
+
+
+/*********************************************************************
+    Tooltip
+*********************************************************************/
+.tuMapTooltip
+{
+    background: #FCF1BD;
+    padding: 5px;
+    border: 1px solid #666666;
+    display: none;
+    -moz-border-radius: 5px /*{cornerRadius}*/;
+    -webkit-border-radius: 5px /*{cornerRadius}*/;
+    border-radius: 5px /*{cornerRadius}*/;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    font-size:12px;
+}
+.tuMapTooltip .SectionViewZoom
+{
+    background-image:url(../IMG/SectionViewZoom.png);
+    background-position: center center;
+    background-repeat:no-repeat;
+    position:absolute;
+    width:83px;
+    height:16px;
+    margin:-23px 0 0 1px;
+}
+.tuMapTooltip img
+{
+    margin:2px auto;
+    text-align:center;
+    border: 1px solid #666666;
+}
+.tuMapTooltip .SectionColor
+{
+	display:inline-block;
+	width:15px;
+	height:15px;
+	margin-right:5px;
+	margin-bottom:-3px;
+	border:1px solid #999999;
+}
+.tuMapTooltip .Title
+{
+    font-weight:bold;
+    display:inline;
+	font-size:13px;
+    line-height:15px;
+	padding-bottom:5px;
+    color:#0074E0;
+}
+.tuMapTooltip .RowDetails
+{
+    font-weight:bold;
+	font-size:10px;
+    line-height:12px;
+	padding-bottom:5px;
+    color:#850000;
+    padding-left:5px;
+    white-space:nowrap;
+}
+.tuMapTooltip .tuMapHighlight
+{
+    font-weight:bold;
+    color:#D93800;
+}
+.tuMapSectionViewContainer
+{
+	border:1px solid;
+	background-color:#487FC2;
+	color:#FFFFFF;
+	text-shadow:1px 1px 1px #333333;
+	font-size:14px;
+}
+.tuMapSectionViewContainer .CloseButton
+{
+	float:right;
+	background: url("../IMG/close.png") no-repeat;
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	margin:3px;
+}
+
+.tuMapTooltip .SectionViewClose
+{
+    background-image:url(../IMG/close.png);
+    background-position: center center;
+    background-repeat:no-repeat;
+    float:right;
+    width:16px;
+    height:16px;
+    margin:-2px -2px 0 0;
+    cursor:pointer;
+}
+
+
+/*********************************************************************
+    Group Container
+*********************************************************************/
+.tuMapGroupsContainer > div
+{
+	float:left;
+}
+.tuMapGroupsContainer .tuMapGroup
+{
+	padding:3px;
+	white-space:nowrap;
+}
+.tuMapActiveGroupsContainer .tuMapGroup
+{
+	cursor: pointer;
+}
+.tuMapActiveGroupsContainer .Disabled
+{
+	cursor: default;
+}
+.tuMapGroupChecked .tuMapGroupColor
+{
+	background-image:url('../IMG/check.png');
+	background-repeat:no-repeat;
+}
+.tuMapGroupsContainer .tuMapGroupColor
+{
+	display:block;
+	float:left;
+	width:13px;
+	height:13px;
+	border:1px solid;
+}
+.tuMapGroupsContainer .tuMapGroupTitle
+{
+	display:block;
+	float:left;
+	line-height:15px;
+	font-size:12px;
+	padding-left:3px;
+}
+.tuMapActiveGroupsContainer .tuMapGroupTitle:hover
+{
+	text-decoration:underline;
+	color:#0000FF;
+}
+.tuMapActiveGroupsContainer .Disabled .tuMapGroupTitle
+{
+	text-decoration:line-through;
+}
+.tuMapActiveGroupsContainer .Disabled .tuMapGroupTitle:hover
+{
+	text-decoration:line-through;
+	color:inherit;
+}
+
+/*********************************************************************
+    Buttons
+*********************************************************************/
+.tuMapControl
+{
+    color:#FFFFFF;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.2);
+    background-color:#FF3000;
+    border: 1px solid #8e0202;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF3000', endColorstr='#8e0202'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#FF3000), to(#8e0202)); /* for webkit browsers */
+    background: -moz-linear-gradient(top, #FF3000, #8e0202); /* for firefox 3.6+ */
+    cursor: pointer;
+    padding: 2px 5px;
+    -moz-border-radius: 3px /*{cornerRadius}*/;
+    -webkit-border-radius: 3px /*{cornerRadius}*/;
+    border-radius: 3px /*{cornerRadius}*/;
+    font-size:12px;
+    margin:2px;
+    min-width: 60px;
+    text-align:center;
+    display:inline-block;
+}
+.tuMapControl:hover
+{
+    background-color:#013a6f;
+    border-color:#013a6f;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2492f8', endColorstr='#013a6f'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#2492f8), to(#013a6f)); /* for webkit browsers */
+    background: -moz-linear-gradient(top, #2492f8, #013a6f); /* for firefox 3.6+ */
+    text-shadow:1px 1px 0 rgba(0,0,0,0.5);
+}
+.tuMapControlSelected,.tuMapControlSelected:hover
+{
+    background: #FFFFFF;
+	border-color:#D93800;
+	color:#000000;
+}
+
+
+
+
+
+/*Loading*/
+.LoaddingWrapper {
+    position: absolute;
+    background: url("../IMG/ui-bg_diagonals-thick_90_eeeeee_40x40.png") repeat scroll 50% 50% #EEEEEE;
+    opacity: 0.8;
+    z-index: 1001;
+    width:100%;
+    height:100%;
+}
+
+.Loadding {
+    background: url(../IMG/ajax-loader.gif) no-repeat center;
+     width:100%;
+    height:100%;
+}
+
+
+
+<!--[if IE 6]> 
+
+/* IE6 css fixer v0.95: Mon, 13 Jan 2014 10:32:56 +0100 */
+
+/* ============================================= */
+/* safe settings                                 */
+
+/* add display:inline to floated elements */
+.tuMapGroupsContainer .tuMapGroupColor,
+.tuMapGroupsContainer .tuMapGroupTitle,
+.tuMapSectionViewContainer .CloseButton,
+.tuMapTooltip .SectionViewClose,
+.tuMapPreferredFilter div,.tuMapGroupsContainer > div {display:inline;}
+
+/* fix negative margins */
+.tuMapTicketList .Notes,
+.tuMapTooltip .SectionViewZoom,
+.tuMapTooltip .SectionColor,
+.tuMapTooltip .SectionViewClose {position:relative; zoom:1;}
+
+/* add transparancy */
+.LoaddingWrapper {filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);}
+
+
+/* add zoom:1; display:inline; to inline-block elements */
+.tuMapPreferredFilter span.Icon,
+.tuMapTicketList th.Sort span,
+.tuMapTicketList .Notes,
+.tuMapTooltip .SectionColor,
+.tuMapControl {zoom:1; display:inline;}
+
+/* add overflow:visible to (submit) buttons */
+ input, button {overflow:visible;}
+ <![endif]-->
